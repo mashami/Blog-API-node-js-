@@ -5,6 +5,7 @@ const Post = require("../models/Post")
 const multer = require("multer");
 const middleware= require("../middleware/middlewares")
 
+
 const storage = multer.diskStorage({
     destination:(req,file,cb) => {
       cb(null,"images")
@@ -19,12 +20,19 @@ const upload = multer({storage: storage})
 
 
 // CREATE A POST
-router.post("/create",middleware,upload.single("photo"), async (req, res) => {
+router.post("/create",middleware.middlewarepost,upload.single("photo"), async (req, res) => {
+    const userId=req.userData.user_id
+    const user = await User.findById(userId);
+    const userN= user.username
+    const username=userN
+
+    console.log(username)
+
     const newpost = new Post({
         title:req.body.title,
         desc:req.body.desc,
         photo:process.env.URL_BLOG+"/images/"+req.file.filename,
-        username:req.body.username,
+        username:username,
         categories:req.body.categories
 
     });
@@ -68,6 +76,7 @@ router.put("/update/:id", async (req, res) => {
 
 router.delete("/delete/:id", async (req, res) => {
     try {
+
         const post = await Post.findById(req.params.id);
         if (post.username === req.body.username) {
             try {
@@ -100,8 +109,14 @@ router.get("/:id", async (req, res) => {
 
 // GET ALL POST
 
-router.get("/", async (req, res) => {
-    const username = req.query.username;
+router.get("/",middleware.middlewarepost,async (req, res) => {
+    const userId=req.userData.user_id
+    const user = await User.findById(userId);
+    const userN= user.username
+    
+     req.query.username = userN
+    const username=req.query.username
+    console.log(username)
     const catName = req.query.cat;
     try { 
         let posts;

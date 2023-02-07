@@ -19,10 +19,6 @@ const options= {
             url: 'http://localhost:5000',
             description: 'Development server',
           },
-          {
-            url:'https://mashami.cyclic.app',
-            description:"prod"
-          }
         ],
         tags: [
           { name: 'AUTHENTICATION', description: 'Authentication Routes' },
