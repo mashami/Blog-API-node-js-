@@ -32,6 +32,9 @@ const DeletePost = {
     
         tags: ['POST'],
         description: "Delete POST by id",
+        security:[{
+            token :[]
+        }],
         parameters: [
             {
                 name: "id",
@@ -80,6 +83,9 @@ const DeletePost = {
 const updatePostById = {
     tags: ['POST'],
     description: "Update POST by id",
+    security:[{
+        token :[]
+    }],
     parameters: [
         {
             name: "id",
@@ -144,6 +150,9 @@ const updatePostById = {
 const createPost = {
     tags: ["POST"],
     description: "REGISTER AND LOG IN TO USER",
+    security:[{
+        token :[]
+    }],
     requestBody: {
         content: {
             "multipart/form-data": {
@@ -157,13 +166,6 @@ const createPost = {
                         desc: {
                             type: "string",
                             example: "This post it all about ..."
-                        },
-
-                        username: {
-                            type: "string",
-                            example: "mashami"
-
-
                         },
                         photo: {
                             type: "file",
@@ -207,15 +209,18 @@ const createPost = {
 const GetAllPost = {
     tags: ["POST"],
     description: "ALL POST",
-    parameters: [
-        {
-            name: "username",
-            in: "path",
-            description: "user name of a user",
-            type: "string",
-            example: "paccy"
-        }
-    ],
+    security:[{
+        token :[]
+    }],
+    // parameters: [
+    //     {
+    //         name: "username",
+    //         in: "path",
+    //         description: "user name of a user",
+    //         type: "string",
+    //         example: "paccy"
+    //     }
+    // ],
     responses: {
         200: {
             description: "OK",
