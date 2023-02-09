@@ -44,20 +44,24 @@ router.post("/create",middleware.middlewarepost,upload.single("photo"), async (r
         }else{
             res.status(401).json()
         }
-
-
-        
-
     } catch (err) {
         res.status(500).json(err)
     }
 });
 
 //UPDATE POST
-router.put("/update/:id", async (req, res) => {
+router.put("/update/:id", middleware.middlewarepost,async (req, res) => {
     try {
+        const userId=req.userData.user_id
+        const user = await User.findById(userId);
+        const userN= user.username
+        const username=userN
+    
+        console.log(username)
+
+
         const post = await Post.findById(req.params.id);
-        if (post.username === req.body.username) {
+        if (post.username === username) {
             try {
                 const updatePost = await Post.findByIdAndUpdate(
                     req.params.id,
@@ -78,14 +82,75 @@ router.put("/update/:id", async (req, res) => {
     }
 }
 );
+//LIKES POST
+
+router.put("/likes/:id", middleware.middleware,async (req, res) => {
+    try {
+        
+        const post = await Post.findById(req.params.id);
+        if (post) {
+            try {
+                const updatePost = await Post.findByIdAndUpdate(
+                    req.params.id,
+                    {
+                        $inc: {likes:1},
+                    },
+                    { new: true }
+                );
+                res.status(200).json(updatePost);
+            } catch (err) {
+                res.status(404).json(err)
+            }
+        } else {
+            res.status(401).json("post doesn't exits")
+        }
+    } catch (err) {
+        res.status(500).json(err)
+    }
+}
+);
+
+router.put("/unlikes/:id", middleware.middleware,async (req, res) => {
+    try {
+        
+        const post = await Post.findById(req.params.id);
+        if (post) {
+            try {
+                const updatePost = await Post.findByIdAndUpdate(
+                    req.params.id,
+                    {
+                        $inc: {likes:-1},
+                    },
+                    { new: true }
+                );
+                res.status(200).json(updatePost);
+            } catch (err) {
+                res.status(404).json(err)
+            }
+        } else {
+            res.status(401).json("post doesn't exits")
+        }
+    } catch (err) {
+        res.status(500).json(err)
+    }
+}
+);
+
+
 
 //DELETE POST
 
-router.delete("/delete/:id", async (req, res) => {
+router.delete("/delete/:id",middleware.middlewarepost,async (req, res) => {
     try {
+        const userId=req.userData.user_id
+        const user = await User.findById(userId);
+        const userN= user.username
+        const username=userN
+    
+        console.log(username)
 
         const post = await Post.findById(req.params.id);
-        if (post.username === req.body.username) {
+        if (post.username === username) {
             try {
                 await post.delete();
                 res.status(200).json("post has been deleted..");
@@ -96,18 +161,30 @@ router.delete("/delete/:id", async (req, res) => {
             res.status(401).json("you delete only your post! ")
         }
     } catch (err) {
-        // res.status(500).json(err)
-        res.status(500).json("you delete only your post! ")
+        
+        res.status(500).json(err)
     }
 })
 
 
 // GET A POST
 
-router.get("/:id", async (req, res) => {
+router.get("/:id",middleware.middlewarepost, async (req, res) => {
     try { 
+        const userId=req.userData.user_id
+        const user = await User.findById(userId);
+        const userN= user.username
+        const username=userN
+    
+        console.log(username)
+        
         const post =await Post.findById(req.params.id);
+        const userNa=post.username
+        if(username===userNa){
         res.status(200).json(post);
+        }else{
+            res.status(401).json("Your not allow to view other user's post")
+        }
         
     } catch (err) {
         res.status(500).json(err)

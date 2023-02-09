@@ -3,13 +3,13 @@ const jwt= require("jsonwebtoken")
 const middleware= (req,res,next)=>{
     try {
         const authHeader= req.headers.token;
-        console.log(authHeader);
+        // console.log(authHeader);
         const token = authHeader.split(' ')[1]
-        console.log(token);
+        // console.log(token);
         const decode = jwt.verify(token, `${process.env.TOKEN_KEY}`)
-        // console.log(token)
+        
         req.userData = decode 
-        // console.log(req.userData)
+        console.log(req.userData)
         next();
     } catch(error){
         console.log(error);

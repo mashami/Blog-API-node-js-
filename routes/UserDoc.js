@@ -35,6 +35,9 @@ const DeleteUser = {
     tags: ["USER"],
     description: "USER",
     description: "Get the user by id",
+    security:[{
+        token :[]
+    }],
     parameters: [
         {
             name: "id",
@@ -65,6 +68,9 @@ const DeleteUser = {
 const updateUserById = {
     tags:['USER'],
     description:"Update user by id",
+    security:[{
+        token :[]
+    }],
       parameters:[
         {
             name:"id",
@@ -80,12 +86,7 @@ const updateUserById = {
                 schema:{
                     type:"object",
                     properties:{
-                        userId:{
-                            type:"string",
-                            description:"copy is past her",
-                            example:"63caaf3527b29e1d399896da"
-
-                        },
+                        
                         email:{
                             type:"string",
                             description:"Your email",
@@ -99,7 +100,7 @@ const updateUserById = {
                         username:{
                             type:"string",
                             description:"update a user name",
-                            example:"mashami"
+                            // example:"mashami"
                         },
                     },
                 },

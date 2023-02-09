@@ -23,7 +23,14 @@ const PostSchema = new mongoose.Schema({
     categories:{
         type:Array,
         required:false
-    }}, 
+    },
+    likes:{
+        type:Number,
+        required:false,
+        default:0,
+    }
+}, 
+
     { timestamps: true });
 
         module.exports = mongoose.model ("Post", PostSchema);
