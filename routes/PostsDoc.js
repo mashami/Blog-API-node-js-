@@ -285,46 +285,6 @@ const updateLikesById = {
     },
 };
 
-const updateunLikesById = {
-    tags: ['POST'],
-    description: "Update POST by id",
-    security:[{
-        token :[]
-    }],
-    parameters: [
-        {
-            name: "id",
-            in: "path",
-            description: "id of POST",
-            type: "string",
-            example: "63d927c84508ed237816d5cc"
-        }
-    ],
-    requestBody: {
-        content: {
-            "application/json": {
-                schema: {
-                    type: "object",
-                    
-                },
-            },
-        },
-    },
-    responses: {
-        201: {
-            description: "OK",
-            content: {
-                "application/json": {
-                    type: "object",
-                    example: {
-                        status: "success",
-                        data: []
-                    },
-                },
-            },
-        },
-    },
-};
 
 const PostDoc = {
    
@@ -347,11 +307,7 @@ const PostDoc = {
         put: updateLikesById
        
     },
-    "/api/post/unlikes/{id}":{
-        put:updateunLikesById
-        
-    },
-
+    
 };
 
 module.exports = PostDoc;
