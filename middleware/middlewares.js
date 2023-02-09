@@ -9,7 +9,7 @@ const middleware= (req,res,next)=>{
         const decode = jwt.verify(token, `${process.env.TOKEN_KEY}`)
         
         req.userData = decode 
-        console.log(req.userData)
+        // console.log(req.userData)
         next();
     } catch(error){
         console.log(error);
