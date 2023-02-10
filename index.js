@@ -9,6 +9,7 @@ const CategoryRouter = require("./routes/Categories");
 const multer = require("multer")
 const swaggerDocumention= require("./happer/documentations")
 const { MONGO_URI } = process.env;
+const cors = require('cors');
 
 dotenv.config();
 
@@ -17,7 +18,10 @@ require('dotenv').config()
 app.use(express.json());
 app.use("/images",express.static("./images"))
 
-
+app.use(cors({
+    origin:'*',
+    optionsSuccessStatus: 200 
+}));
 
 mongoose.set('strictQuery', true);
 // console,log()
