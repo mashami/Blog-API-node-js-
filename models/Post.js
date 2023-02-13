@@ -35,14 +35,18 @@ const PostSchema = new mongoose.Schema({
         ref: "User",
         default: 'None'
       }],
+      comment:[{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:"Comment",
+        default: 'None'
+      }],
+
+  
 }, 
 
     { timestamps: true });
 
-    PostSchema.methods.hasLiked = function (userId) {
-        return this.likedBy.indexOf(userId) !== -1;
-      };
-    
+   
       
       
         module.exports = mongoose.model ("Post", PostSchema);

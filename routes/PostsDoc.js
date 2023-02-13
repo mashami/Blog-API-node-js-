@@ -11,7 +11,7 @@ const GetPost = {
             in: "path",
             description: "id of user",
             type: "string",
-            example: "63caaf3527b29e1d399896da"
+            example: "63e9227fc807f6e9217d955a"
         }
     ],
     responses: {

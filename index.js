@@ -6,10 +6,12 @@ const authRoute = require("./routes/auth");
 const UserRoute = require("./routes/users");
 const Postoute = require("./routes/Posts");
 const CategoryRouter = require("./routes/Categories");
+const commentRouter = require("./routes/Comment")
 const multer = require("multer")
 const swaggerDocumention= require("./happer/documentations")
 const { MONGO_URI } = process.env;
 const cors = require('cors');
+
 
 dotenv.config();
 
@@ -32,18 +34,7 @@ mongoose.connect(process.env.MONGO_URI)
         app.listen(process.env.API_PORT, () => {
             console.log("Connected to MangoDB $ Server Its listening on port", process.env.API_PORT)
             
-        // const storage = multer.diskStorage({
-        //     destination:(req,file,cb) => {
-        //       cb(null,"images")
-        //     }, filename(req, file,cb){
-        //         cb(null, "image2.jpeg"); 
-        //         // cb(null, req.body.name); 
-        //     },
-        // });
-        // const upload = multer({storage: storage});
-        // app.post("/api/uplaod", upload.single("file"),(req, res)=>{
-        //     res.status (200).json("file has been uploaded");
-        // })
+        
         
     })
 }).catch(error => console.log(error.message));
@@ -61,5 +52,6 @@ mongoose.connect(process.env.MONGO_URI)
         app.use("/api/user", UserRoute);
         app.use("/api/post",Postoute );
         app.use("/api/category",CategoryRouter );
+        app.use("/api/comment", commentRouter);
         
         swaggerDocumention(app);

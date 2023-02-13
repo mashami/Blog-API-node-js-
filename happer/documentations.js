@@ -5,6 +5,7 @@ const userRegDoc = require("../routes/auth.doc");
 const userDoc = require("../routes/UserDoc");
 const PostDoc = require("../routes/PostsDoc");
 const categoryDoc=require("../routes/categoryDoc")
+const commentDoc = require("../routes/commentDoc")
 
 const options= {
     definition: {
@@ -29,6 +30,7 @@ const options= {
           { name: 'USER', description: 'Users Routes' },
           { name: 'POST', description: 'Posts routes' },
           { name: 'CATEGORY', description: 'Category routes' },
+          { name: 'COMEMENT', description: 'Comment routes' },
         ],
        
         components: {
@@ -50,6 +52,7 @@ const options= {
             ...userDoc,
             ...PostDoc,
             ...categoryDoc,
+            ...commentDoc,
         },
       },
       apis: ['../routes/**/*.js'],

@@ -95,9 +95,6 @@ router.put("/update/:id", middleware.middlewarepost, async (req, res) => {
 
 
 router.put("/likes/:id", middleware.middlewarepost, async (req, res) => {
-    let userId =0;
-    
-
     try {
 
         const userId = req.userData.user_id
@@ -200,8 +197,8 @@ router.get("/:id", middleware.middlewarepost, async (req, res) => {
         const username = userN
 
         console.log(username)
-
-        const post = await Post.findById(req.params.id);
+       
+        const post = await Post.findById(req.params.id).populate("comment","comment");
         const userNa = post.username
         if (username === userNa) {
             res.status(200).json(post);
