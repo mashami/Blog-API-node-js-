@@ -2,7 +2,7 @@
 const createCategory={
     tags: ["CATEGORY"],
     description: "REGISTER CATEGORY",
-    description: "Get the post by id",
+    description: "this is the API for creating Categories will be done by Admin only",
     security:[{
         token :[]
     }],
@@ -46,7 +46,7 @@ const createCategory={
 
 const GetAllCategory={
     tags: ["CATEGORY"],
-    description: "ALL CATEGORY",
+    description: "GET ALL CATEGORY",
     responses: {
         200: {
             description: "OK",

@@ -1,7 +1,7 @@
 const GetPost = {
     tags: ["POST"],
     description: "POST",
-    description: "Get the post by id",
+    description: "This Api generated for accessing a Post only by the post owner by using ID of the post",
     security:[{
         token :[]
     }],
@@ -35,6 +35,7 @@ const DeletePost = {
     
         tags: ['POST'],
         description: "Delete POST by id",
+        description: "this API is for deleting a post but task for the owner of the post and admin",
         security:[{
             token :[]
         }],
@@ -85,7 +86,7 @@ const DeletePost = {
 
 const updatePostById = {
     tags: ['POST'],
-    description: "Update POST by id",
+    description: "Update POST API it require you to generation a post-Id but will be for the owner and Admin",
     security:[{
         token :[]
     }],
@@ -152,7 +153,7 @@ const updatePostById = {
 
 const createPost = {
     tags: ["POST"],
-    description: "REGISTER AND LOG IN TO USER",
+    description: "This API is for creating a post which will be for the people who have an account",
     security:[{
         token :[]
     }],
@@ -211,19 +212,11 @@ const createPost = {
 
 const GetAllPost = {
     tags: ["POST"],
-    description: "ALL POST",
+    description: "this API it for getting all the post belongs to user loged in only ",
     security:[{
         token :[]
     }],
-    // parameters: [
-    //     {
-    //         name: "username",
-    //         in: "path",
-    //         description: "user name of a user",
-    //         type: "string",
-    //         example: "paccy"
-    //     }
-    // ],
+    
     responses: {
         200: {
             description: "OK",
@@ -246,7 +239,7 @@ const GetAllPost = {
 
 const GetAllPostExits = {
     tags: ["POST"],
-    description: "ALL POST",
+    description: "this API it for getting all the posts exits in database no need of log in!",
     responses: {
         200: {
             description: "OK",
@@ -269,7 +262,7 @@ const GetAllPostExits = {
 
 const updateLikesById = {
     tags: ['POST'],
-    description: "Update POST by id",
+    description: "this is the API for the like a user will be allow to like post a once",
     security:[{
         token :[]
     }],

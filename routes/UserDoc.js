@@ -1,7 +1,7 @@
 const GetUser = {
     tags: ["USER"],
     description: "USER",
-    description: "Get the user by id",
+    description: "this API id for Getting the user by id, this task is for owner and Admin only",
     security:[{
         token :[]
     }],
@@ -34,7 +34,7 @@ const GetUser = {
 const DeleteUser = {
     tags: ["USER"],
     description: "USER",
-    description: "Get the user by id",
+    description: "This API is for deleting a user, this task it for the Admin only",
     security:[{
         token :[]
     }],
@@ -67,7 +67,7 @@ const DeleteUser = {
 
 const updateUserById = {
     tags:['USER'],
-    description:"Update user by id",
+    description:"This API is for Updating a user by id, this task is for owner and admin only",
     security:[{
         token :[]
     }],
@@ -176,7 +176,7 @@ const updateUserById = {
 
 const GetAllUser={
     tags: ["USER"],
-    description: "ALL USER",
+    description: "this API is for the getting all users but will be done by Admin only",
     security:[{
         token :[]
     }],

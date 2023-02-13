@@ -1,7 +1,7 @@
 
 const createComment={
     tags: ["COMMENT"],
-    description: " COMMENT",
+    description: " this is the API for comment by using the Id of the post you want to comment",
 
    
     security:[{
