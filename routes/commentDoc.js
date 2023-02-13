@@ -22,7 +22,7 @@ const createComment={
                 schema:{
                     type:"object",
                     properties:{
-                        Comment:{
+                        comment:{
                             type:"string",
                             example:"nice post"
                         },
