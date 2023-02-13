@@ -61,6 +61,10 @@ const createUser={
                             type:"string",
                             example:"12345"
                         },
+                        role:{
+                            type:"string",
+                            example:"admin"
+                        },
                     }
                 }
             }

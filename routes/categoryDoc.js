@@ -2,6 +2,11 @@
 const createCategory={
     tags: ["CATEGORY"],
     description: "REGISTER CATEGORY",
+    description: "Get the post by id",
+    security:[{
+        token :[]
+    }],
+    
     requestBody:{
         content:{
             "application/json":{

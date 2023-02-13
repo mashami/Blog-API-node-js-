@@ -244,6 +244,29 @@ const GetAllPost = {
 }
 
 
+const GetAllPostExits = {
+    tags: ["POST"],
+    description: "ALL POST",
+    responses: {
+        200: {
+            description: "OK",
+
+            content: {
+                "application/json": {
+                    Schema: {
+                        type: "object",
+                        example: {
+                            count: 0,
+                            user: [],
+                        },
+                    },
+                },
+            },
+        },
+    },
+}
+
+
 const updateLikesById = {
     tags: ['POST'],
     description: "Update POST by id",
@@ -305,7 +328,10 @@ const PostDoc = {
     },
     "/api/post/likes/{id}":{
         put: updateLikesById
-       
+    
+    },
+    "/api/post/all":{
+        get: GetAllPostExits
     },
     
 };

@@ -1,5 +1,6 @@
 require("dotenv")
 const jwt= require("jsonwebtoken")
+const User=require("../models/User")
 const middleware= (req,res,next)=>{
     try {
         const authHeader= req.headers.token;
@@ -36,19 +37,31 @@ const middlewarepost= (req,res,next)=>{
         })
     }
 }
-const middlewareAdmin= (req,res,next)=>{
+const middlewareAdmin= async (req,res,next)=>{
     try {
-        middleware(req, res,() =>{
-         if(decode.role==="admin"){
-            next()
-         }else{
-            res.status(401).json({
-                message:"you are not Authorized to this task"
+        const authHeader= req.headers.token;
+        
+        const token = authHeader.split(' ')[1]
+        
+        const decode = jwt.verify(token, `${process.env.TOKEN_KEY}`)
+        
+        req.userData = decode
+       const userid=req.userData.user_id
+        const user = await User.findById(userid);
+        if(user.role==="admin") {
+            
+        next();
+        }else{
+            res.status(402).json({
+                message:"you are not Authorized"
             })
-         }
+        }
+    } catch(error){
+        console.log(error);
+        res.status(401).json({
+            message: "Authentication falied"
         })
-}catch(err){
-    res.status(500).json(err)
-}
+    }
+
 }
 module.exports = { middleware,middlewarepost, middlewareAdmin };

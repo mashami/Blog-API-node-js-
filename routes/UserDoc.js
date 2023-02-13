@@ -177,6 +177,9 @@ const updateUserById = {
 const GetAllUser={
     tags: ["USER"],
     description: "ALL USER",
+    security:[{
+        token :[]
+    }],
     responses: {
         200: {
             description: "OK",

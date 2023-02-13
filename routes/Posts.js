@@ -65,7 +65,7 @@ router.put("/update/:id", middleware.middlewarepost, async (req, res) => {
 
 
         const post = await Post.findById(req.params.id);
-        if (post.username === username) {
+        if (post.username === username || user.role==="admin") {
             try {
                 const updatePost = await Post.findByIdAndUpdate(
                     req.params.id,
@@ -170,7 +170,7 @@ router.delete("/delete/:id", middleware.middlewarepost, async (req, res) => {
         console.log(username)
 
         const post = await Post.findById(req.params.id);
-        if (post.username === username) {
+        if (post.username === username || user.role==="admin") {
             try {
                 await post.delete();
                 res.status(200).json("post has been deleted..");
@@ -187,25 +187,26 @@ router.delete("/delete/:id", middleware.middlewarepost, async (req, res) => {
 })
 
 
+//GET ALL POST EXITS IN DATABASE
+
+
+router.get("/all",async(req, res) =>{
+    try{
+        const post = await Post.find().populate("comment","comment username");
+        res.status(200).json({post})
+    }catch(err){
+        res.status(401).json(err)
+    }
+});
+
+
+
 // GET A POST
 
-router.get("/:id", middleware.middlewarepost, async (req, res) => {
+router.get("/:id",  async (req, res) => {
     try {
-        const userId = req.userData.user_id
-        const user = await User.findById(userId);
-        const userN = user.username
-        const username = userN
-
-        console.log(username)
-       
         const post = await Post.findById(req.params.id).populate("comment","comment -_id username");
-        const userNa = post.username
-        if (username === userNa) {
-            res.status(200).json(post);
-        } else {
-            res.status(401).json("Your not allow to view other user's post")
-        }
-
+         res.status(200).json(post);    
     } catch (err) {
         res.status(500).json(err)
     }
@@ -225,7 +226,7 @@ router.get("/", middleware.middlewarepost, async (req, res) => {
     try {
         let posts;
         if (username) {
-            posts = await Post.find({ username })
+            posts = await Post.find({ username }).populate("comment","comment -_id username");
         } else if (catName) {
             posts = await Post.find({
                 categories: {
@@ -242,6 +243,8 @@ router.get("/", middleware.middlewarepost, async (req, res) => {
         res.status(500).json(err)
     }
 });
+
+
 
 
 module.exports = router;

@@ -9,11 +9,11 @@ const cloudinary=require("../happer/cloudinary")
 // Update a user
 router.put("/update/:id", middleware.middlewarepost,async(req, res)=>{
     const userId=req.userData.user_id
-    // const user = await User.findById(userId);
+    const user = await User.findById(userId);
     // const user_id= user._id
     // const username=userN
     console.log(userId);
-    if (userId === req.params.id){
+    if (userId === req.params.id || user.role==="admin" ){
         if (req.body.password){
             const salt = await bcrypt.genSalt(10);
             req.body.password = await bcrypt.hash(req.body.password, salt)
@@ -45,9 +45,9 @@ router.put("/update/:id", middleware.middlewarepost,async(req, res)=>{
 }
 });
 
-//DELETE 
+//DELETE  A USER
 
-router.delete("/delete/:id",middleware.middlewarepost, async(req, res)=>{
+router.delete("/delete/:id",middleware.middlewareAdmin, async(req, res)=>{
     const userId=req.userData.user_id
     const user = await User.findById(userId);
     const user_id= user._id
@@ -86,14 +86,11 @@ router.get("/:id",middleware.middleware, async(req, res) =>
     }
 });
 
-router.get("/", middleware.middlewarepost,async(req, res) =>{
-    const userId=req.userData.user_id
-    const userfind = await User.findById(userId);
-    const user_id= userfind._id
-    if (user_id==process.env.Admin){
-        const user= await User.find()
+router.get("/", middleware.middlewareAdmin,async(req, res) =>{
+    try{
+        const user = await User.find();
         res.status(200).json({user})
-    }else{
+    }catch(err){
         res.status(401).json("this is for Admin only")
     }
 });

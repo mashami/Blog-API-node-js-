@@ -1,9 +1,10 @@
 const router = require("express").Router();
 
 const Category = require("../models/Category");
+const middleware = require("../middleware/middlewares")
 
 // POST CATEGORY
-router.post("/create/",async(req, res) =>{
+router.post("/create/",middleware.middlewareAdmin,async(req, res) =>{
     const newcat = new Category(req.body);
     try {
         const saveCat = await newcat.save();
