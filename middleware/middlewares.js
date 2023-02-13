@@ -3,13 +3,13 @@ const jwt= require("jsonwebtoken")
 const middleware= (req,res,next)=>{
     try {
         const authHeader= req.headers.token;
-        // console.log(authHeader);
+        
         const token = authHeader.split(' ')[1]
-        // console.log(token);
+        
         const decode = jwt.verify(token, `${process.env.TOKEN_KEY}`)
         
         req.userData = decode 
-        // console.log(req.userData)
+    
         next();
     } catch(error){
         console.log(error);
@@ -36,5 +36,19 @@ const middlewarepost= (req,res,next)=>{
         })
     }
 }
-
-module.exports = { middleware,middlewarepost  };
+const middlewareAdmin= (req,res,next)=>{
+    try {
+        middleware(req, res,() =>{
+         if(decode.role==="admin"){
+            next()
+         }else{
+            res.status(401).json({
+                message:"you are not Authorized to this task"
+            })
+         }
+        })
+}catch(err){
+    res.status(500).json(err)
+}
+}
+module.exports = { middleware,middlewarepost, middlewareAdmin };

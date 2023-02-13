@@ -1,7 +1,7 @@
 
 const createComment={
-    tags: ["COMEMENT"],
-    description: " COMEMENT",
+    tags: ["COMMENT"],
+    description: " COMMENT",
 
    
     security:[{
@@ -51,29 +51,6 @@ const createComment={
     },
 }
 
-
-
-// const GetAllCategory={
-//     tags: ["CATEGORY"],
-//     description: "ALL CATEGORY",
-//     responses: {
-//         200: {
-//             description: "OK",
-
-//             content: {
-//                 "application/json": {
-//                     Schema: {
-//                         type: "object",
-//                         example: {
-//                             count: 0,
-//                             user: [],
-//                         },
-//                     },
-//                 },
-//             },
-//         },
-//     },
-// }
 
 const commentDoc = {
    

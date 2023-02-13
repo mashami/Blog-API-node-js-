@@ -18,6 +18,10 @@ const UserSchema = new mongoose.Schema({
         type:String,
         default:"",
     },token: { type: String },
+    // role:{
+    //     type:String,
+    //     default:"user"
+    // }
     
 }, { timestamps: true });
 

@@ -30,7 +30,7 @@ const options= {
           { name: 'USER', description: 'Users Routes' },
           { name: 'POST', description: 'Posts routes' },
           { name: 'CATEGORY', description: 'Category routes' },
-          { name: 'COMEMENT', description: 'Comment routes' },
+          { name: 'COMMENT', description: 'Comment routes' },
         ],
        
         components: {

@@ -13,6 +13,7 @@ router.post("/register", async (req, res) => {
       username: req.body.username,
       email: req.body.email,
       password: hashedPass,
+      role:req.body.role,
     });
     const userna = await User.find({ username: req.body.username })
     const userEmail = await User.find({ email: req.body.email })
