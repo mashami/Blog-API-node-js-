@@ -82,7 +82,7 @@ const updateUserById = {
     ],
     requestBody:{
         content:{
-            "application/json":{
+            "multipart/form-data":{
                 schema:{
                     type:"object",
                     properties:{
@@ -90,23 +90,27 @@ const updateUserById = {
                         email:{
                             type:"string",
                             description:"Your email",
-                            example:"kaleb@gmail.com"
+                            // example:"kaleb@gmail.com"
                         },
                         password:{
                             type:"string",
                             description:"your password",
-                            example:"12345"
+                            // example:"12345"
                         },
                         username:{
                             type:"string",
                             description:"update a user name",
                             // example:"mashami"
                         },
+                        profilePicture: {
+                            type: "file",
+                            example: "upload Image"
                     },
                 },
             },
         },
     },
+},
     responses:{
         201:{
             description:"OK",

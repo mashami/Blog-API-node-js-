@@ -6,14 +6,28 @@ const bcrypt = require("bcrypt");
 const Post = require("../models/Post");
 const middleware= require("../middleware/middlewares")
 const cloudinary=require("../happer/cloudinary")
+const multer = require("multer");
+
 // Update a user
-router.put("/update/:id", middleware.middlewarepost,async(req, res)=>{
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, "images")
+    }, filename(req, file, cb) {
+        // cb(null, "image2.jpeg"); 
+        // cb(null, req.body.name); 
+        cb(null, file.originalname)
+    },
+});
+
+const upload = multer({ storage: storage })
+
+router.put("/update/:id", middleware.middlewarepost, upload.single("profilePicture"),async(req, res)=>{
     const userId=req.userData.user_id
     const user = await User.findById(userId);
     // const user_id= user._id
     // const username=userN
-    console.log(userId);
-    if (userId === req.params.id || user.role==="admin" ){
+    // console.log(userId);
+    if (userId === req.params.id){
         if (req.body.password){
             const salt = await bcrypt.genSalt(10);
             req.body.password = await bcrypt.hash(req.body.password, salt)
@@ -29,9 +43,10 @@ router.put("/update/:id", middleware.middlewarepost,async(req, res)=>{
 
         }
     try{
-        
+        const result = await cloudinary.uploader.upload(req.file.path)
         const updateuser = await User.findByIdAndUpdate(req.params.id,{
             $set: req.body,
+            profilePicture: result.secure_url,
         },{new:true})
 
           res.status(200).json(updateuser);

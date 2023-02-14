@@ -25,9 +25,9 @@ const middlewarepost= (req,res,next)=>{
         const authHeader= req.headers.token;
         const token = authHeader.split(' ')[1]
         const decode = jwt.verify(token, `${process.env.TOKEN_KEY}`)
-        console.log(token)
+        // console.log(token)
         req.userData = decode
-        console.log(req.userData)
+        // console.log(req.userData)
         
         next();
     } catch(error){
