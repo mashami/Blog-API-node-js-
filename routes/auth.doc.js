@@ -9,11 +9,11 @@ const LogInDoc = {
                     properties:{
                         email:{
                             type:"string",
-                            example:"mashamipaccy04@gmail.com"
+                            example:"admin@gmail.com"
                         },
                         password:{
                             type:"string",
-                            example:"paccy"
+                            example:"admin"
                         },
                     }
                 }
