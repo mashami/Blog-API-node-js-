@@ -22,7 +22,7 @@ const middleware= (req,res,next)=>{
 
 const middlewarepost= (req,res,next)=>{
     try {
-        const authHeader= req.headers.token;
+        const authHeader= req.headers.token || req.headers.Authorization;
         const token = authHeader.split(' ')[1]
         const decode = jwt.verify(token, `${process.env.TOKEN_KEY}`)
         // console.log(token)

@@ -46,7 +46,9 @@ router.post("/create", middleware.middlewarepost, upload.single("photo"), async 
         if (savePost) {
             return  res.status(200).json(savePost)
         } else {
-            return   res.status(401).json()
+            return   res.status(401).json({
+                message:"missing the"
+            })
         }
     } catch (err) {
         return res.status(500).json(err)
