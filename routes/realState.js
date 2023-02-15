@@ -21,7 +21,7 @@ const upload = multer({ storage: storage })
 
 
 // CREATE A POST
-router.post("/create",  upload.single("image"), async (req, res) => {
+router.post("/create", middleware.middlewareAdmin, upload.single("image"), async (req, res) => {
     // const userId = req.userData.user_id
     // const user = await User.findById(userId);
     // const userN = user.username

@@ -14,7 +14,7 @@ const middleware= (req,res,next)=>{
         next();
     } catch(error){
         console.log(error);
-        res.status(401).json({
+        return res.status(401).json({
             message: "Authentication falied"
         })
     }
@@ -32,7 +32,7 @@ const middlewarepost= (req,res,next)=>{
         next();
     } catch(error){
         console.log(error);
-        res.status(401).json({
+        return res.status(401).json({
             message: "Authentication falied"
         })
     }
@@ -52,13 +52,14 @@ const middlewareAdmin= async (req,res,next)=>{
             
         next();
         }else{
-            res.status(402).json({
+            
+            return res.status(402).json({
                 message:"you are not Authorized"
             })
         }
     } catch(error){
         console.log(error);
-        res.status(401).json({
+        return res.status(401).json({
             message: "Authentication falied"
         })
     }
