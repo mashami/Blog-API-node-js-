@@ -3,7 +3,7 @@ const jwt= require("jsonwebtoken")
 const User=require("../models/User")
 const middleware= (req,res,next)=>{
     try {
-        const authHeader= req.headers.token;
+        const authHeader= req.headers.token || req.headers.authorization;
         
         const token = authHeader.split(' ')[1]
         console.log(token)
@@ -40,7 +40,7 @@ const middlewarepost= (req,res,next)=>{
 }
 const middlewareAdmin= async (req,res,next)=>{
     try {
-        const authHeader= req.headers.token;
+        const authHeader= req.headers.token || req.headers.authorization;
         
         const token = authHeader.split(' ')[1]
         

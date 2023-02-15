@@ -22,7 +22,7 @@ const options= {
             description: 'Development server',
           },
           {
-            url: 'https://mashami.cyclic.app',
+            url: 'https://blog-apis-jqjw.onrender.com',
             description: "Hosted Development server",
           },
         ],

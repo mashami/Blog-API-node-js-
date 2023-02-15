@@ -1,7 +1,7 @@
 const router = require("express").Router();
 const { model } = require("mongoose");
 const User = require("../models/User");
-const post = require("../models/Post")
+const post = require("../models/Post");
 const bcrypt = require("bcrypt");
 const Post = require("../models/Post");
 const middleware= require("../middleware/middlewares")
