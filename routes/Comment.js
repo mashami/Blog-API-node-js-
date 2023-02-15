@@ -31,13 +31,13 @@ router.post("/create/:id",middleware.middleware, async(req, res)=>{
         if (saveComment) {
             post.comment.push(saveComment)
             await post.save();
-            res.status(200).json(saveComment)
+            return   res.status(200).json(saveComment)
 
         } else {
-            res.status(401).json()
+            return res.status(401).json()
         }
     } catch (err) {
-        res.status(500).json(err)
+        return res.status(500).json(err)
     }
 })
 

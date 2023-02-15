@@ -29,11 +29,11 @@ router.post("/register", async (req, res) => {
     }
      else {
       const user = await newUser.save();
-      res.status(200).json(user);
+      return res.status(200).json(user);
     }
 
   } catch (err) {
-    res.status(500).json(err)
+   return res.status(500).json(err)
   }
 });
 
@@ -46,13 +46,13 @@ router.post("/register", async (req, res) => {
 //             return res.status(400).json("Wrong credentials!")
 //         }else{
 //         const { password, ...others } = user._doc;
-//         res.status(200).json(others);
+//        return res.status(200).json(others);
 
-//         res.status(200).json(user)
+//        return res.status(200).json(user)
 //         console.log(user) 
 //         }
 //     }catch (err) {
-//         res.status(500).json(err)
+//        return res.status(500).json(err)
 //     }
 // });
 
@@ -68,7 +68,7 @@ router.post("/login", async (req, res) => {
 
     // Validate user input
     if (!(email && password)) {
-      res.status(400).send("All input is required");
+       return res.status(400).send("All input is required");
     }
     // Validate if user exist in our database
     const user = await User.findOne({ email });
@@ -91,9 +91,9 @@ router.post("/login", async (req, res) => {
 
       return res.status(200).json(user);
     }
-    res.status(400).send("Invalid Credentials");
+     return res.status(400).send("Invalid Credentials");
   } catch (err) {
-    console.log(err);
+    return res.status(500).json(err)
   }
 
 });

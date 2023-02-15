@@ -44,12 +44,12 @@ router.post("/create", middleware.middlewarepost, upload.single("photo"), async 
     try {
         const savePost = await newpost.save();
         if (savePost) {
-            res.status(200).json(savePost)
+            return  res.status(200).json(savePost)
         } else {
-            res.status(401).json()
+            return   res.status(401).json()
         }
     } catch (err) {
-        res.status(500).json(err)
+        return res.status(500).json(err)
     }
 });
 
@@ -74,15 +74,15 @@ router.put("/update/:id", middleware.middlewarepost, async (req, res) => {
                     },
                     { new: true }
                 );
-                res.status(200).json(updatePost);
+                return res.status(200).json(updatePost);
             } catch (err) {
-                res.status(500).json(err)
+                return  res.status(500).json(err)
             }
         } else {
-            res.status(401).json("You can update only your a count")
+            return  res.status(401).json("You can update only your a count")
         }
     } catch (err) {
-        res.status(500).json(err)
+        return res.status(500).json(err)
     }
 }
 );
@@ -124,10 +124,10 @@ router.put("/likes/:id", middleware.middlewarepost, async (req, res) => {
                         },
                         { new: true }
                     )
-                    res.status(200).json(updatePost);
+                    return res.status(200).json(updatePost);
                 } catch (err) {
                     console.log(err);
-                    res.status(404).json({ status: "error", err: err.message })
+                    return  res.status(404).json({ status: "error", err: err.message })
                 }
             } else {
                 try {
@@ -139,18 +139,18 @@ router.put("/likes/:id", middleware.middlewarepost, async (req, res) => {
                         },
                         { new: true }
                     );
-                    res.status(200).json(updatePost);
+                    return  res.status(200).json(updatePost);
                 } catch (err) {
-                    res.status(404).json(err)
+                    return   res.status(404).json(err)
                 }
             }
         }
 
         else {
-            res.status(401).json({ status: "Post not Exits", err: err.message })
+            return  res.status(401).json({ status: "Post not Exits", err: err.message })
         }
     } catch (err) {
-        res.status(500).json({ status: "Server error", err: err.message })
+        return   res.status(500).json({ status: "Server error", err: err.message })
     }
 }
 );
@@ -173,16 +173,16 @@ router.delete("/delete/:id", middleware.middlewarepost, async (req, res) => {
         if (post.username === username || user.role==="admin") {
             try {
                 await post.delete();
-                res.status(200).json("post has been deleted..");
+                return res.status(200).json("post has been deleted..");
             } catch (err) {
-                res.status(500).json(err);
+                return  res.status(500).json(err);
             }
         } else {
-            res.status(401).json("you delete only your post! ")
+            return  res.status(401).json("you delete only your post! ")
         }
     } catch (err) {
 
-        res.status(500).json(err)
+        return  res.status(500).json(err)
     }
 })
 
@@ -193,9 +193,9 @@ router.delete("/delete/:id", middleware.middlewarepost, async (req, res) => {
 router.get("/all",async(req, res) =>{
     try{
         const post = await Post.find().populate("comment","comment username");
-        res.status(200).json({post})
+        return   res.status(200).json({post})
     }catch(err){
-        res.status(401).json(err)
+        return   res.status(401).json(err)
     }
 });
 
@@ -206,9 +206,9 @@ router.get("/all",async(req, res) =>{
 router.get("/:id",  async (req, res) => {
     try {
         const post = await Post.findById(req.params.id).populate("comment","comment -_id username");
-         res.status(200).json(post);    
+        return  res.status(200).json(post);    
     } catch (err) {
-        res.status(500).json(err)
+        return res.status(500).json(err)
     }
 });
 
@@ -237,10 +237,10 @@ router.get("/", middleware.middlewarepost, async (req, res) => {
         } else {
             posts = await Post.find();
         }
-        res.status(200).json(posts)
+        return res.status(200).json(posts)
 
     } catch (err) {
-        res.status(500).json(err)
+        return res.status(500).json(err)
     }
 });
 

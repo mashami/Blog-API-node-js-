@@ -49,13 +49,13 @@ router.put("/update/:id", middleware.middlewarepost, upload.single("profilePictu
             profilePicture: result.secure_url,
         },{new:true})
 
-          res.status(200).json(updateuser);
+        return res.status(200).json(updateuser);
 
     } catch(err){
-        res.status(500).json(err);
+        return res.status(500).json(err);
     }
 } else {
-    res.status(401).json({
+    return res.status(401).json({
         message:"you can't update other's user account"})
 }
 });
@@ -75,16 +75,16 @@ router.delete("/delete/:id",middleware.middlewareAdmin, async(req, res)=>{
     try{
         await post.deleteMany({ username: user.username });
          await User.findByIdAndDelete(req.params.id)
-         res.status(200).json(" User delete")
+         return res.status(200).json(" User delete")
         
     } catch(err){
-          res.status(200).json(err);
+        return  res.status(200).json(err);
     }
     } catch(err){
-        res.status(404).json(" User not found")
+        return  res.status(404).json(" User not found")
     }
 } else {
-    res.status(401).json("you can't delete other user's account")
+    return  res.status(401).json("you can't delete other user's account")
 }
 });
 
@@ -95,18 +95,18 @@ router.get("/:id",middleware.middleware, async(req, res) =>
     try{
     const user = await User.findById(req.params.id);
     const { password, ...others } = user._doc;
-    res.status(200).json(others);
+    return res.status(200).json(others);
 } catch(err){
-        res.status(500).json(err)
+    return res.status(500).json(err)
     }
 });
 
 router.get("/", middleware.middlewareAdmin,async(req, res) =>{
     try{
         const user = await User.find();
-        res.status(200).json({user})
+        return res.status(200).json({user})
     }catch(err){
-        res.status(401).json("this is for Admin only")
+        return res.status(401).json("this is for Admin only")
     }
 });
 

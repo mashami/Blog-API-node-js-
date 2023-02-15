@@ -45,12 +45,12 @@ router.post("/create",  upload.single("image"), async (req, res) => {
     try {
         const saveRealState = await newRealState.save();
         if (saveRealState) {
-            res.status(200).json(saveRealState)
+            return   res.status(200).json(saveRealState)
         } else {
-            res.status(401).json()
+            return  res.status(401).json()
         }
     } catch (err) {
-        res.status(500).json(err)
+        return res.status(500).json(err)
     }
 });
 
