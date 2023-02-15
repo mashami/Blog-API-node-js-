@@ -62,9 +62,9 @@ router.post("/login", async (req, res) => {
 
   // Our login logic starts here
   try {
-    // Get user input
+    // Get user inputs
 
-    const { email, password } = req.body;
+    const { email, password,role,username } = req.body;
 
     // Validate user input
     if (!(email && password)) {
@@ -72,11 +72,11 @@ router.post("/login", async (req, res) => {
     }
     // Validate if user exist in our database
     const user = await User.findOne({ email });
-
+    
     if (user && (await bcrypt.compare(password, user.password))) {
       // Create token
       const token = jwt.sign(
-        { user_id: user._id, role,username},
+        { user_id: user._id, role, username},
         process.env.TOKEN_KEY,
         {
           expiresIn: "2h",
