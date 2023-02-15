@@ -2,67 +2,63 @@ const mongoose = require("mongoose")
 const Schema = mongoose.Schema;
 
 const realStateSchema = new mongoose.Schema({
-   
-    location:{
+
+    location: {
         province: {
-        type: Schema.Types.ObjectId,
-        ref: "Provide",
-        default: 'None'
-    
+            type: String,
+            default: ''
+
         },
         district: {
-            type: Schema.Types.ObjectId,
-            ref: "Distrist",
-            default: 'None'
-        
+            type: String,
+            default: ''
+
         },
         street: {
-            type: Schema.Types.ObjectId,
-            ref: "Street",
-            default: 'None'
-            
+            type: String,
+            default: ''
+
         }
-        
-    },
-    price: {
-        type:String,
-        required:true,
 
     },
-    image:{
-        type:String,
-        required:false,
+    price: {
+        type: String,
+        required: true,
+
     },
-    beds:{
-        type:Number,
-        required:true,
+    image: {
+        type: String,
+        required: false,
     },
-    bath:{
-        type:Number,
-        required:false
+    beds: {
+        type: Number,
+        required: true,
     },
-    yearbuilt:{
-        type:Number,
-        required:false
+    bath: {
+        type: Number,
+        required: false
     },
-    lotsize:{
-        type:Number,
-        required:true
+    yearbuilt: {
+        type: String,
+        required: false
     },
-    Status:{
-        type:String,
-        required:true
-        
+    lotsize: {
+        type: Number,
+        required: true
     },
-    Description:{
-        type:String,
-        required:false
+    Status: {
+        type: String,
+        required: true
+
     },
-    
-}, 
+    Description: {
+        type: String,
+        required: false
+    },
+
+},
 
     { timestamps: true });
 
-    
-    module.exports = mongoose.model ("RealState", realStateSchema);
-       
+
+module.exports = mongoose.model("RealState", realStateSchema);

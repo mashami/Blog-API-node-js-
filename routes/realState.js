@@ -21,11 +21,11 @@ const upload = multer({ storage: storage })
 
 
 // CREATE A POST
-router.post("/create", middleware.middleware, upload.single("image"), async (req, res) => {
-    const userId = req.userData.user_id
-    const user = await User.findById(userId);
-    const userN = user.username
-    const username = userN
+router.post("/create",  upload.single("image"), async (req, res) => {
+    // const userId = req.userData.user_id
+    // const user = await User.findById(userId);
+    // const userN = user.username
+    // const username = userN
 
     // console.log(username)
     const result = await cloudinary.uploader.upload(req.file.path)
@@ -53,3 +53,5 @@ router.post("/create", middleware.middleware, upload.single("image"), async (req
         res.status(500).json(err)
     }
 });
+
+module.exports = router;
