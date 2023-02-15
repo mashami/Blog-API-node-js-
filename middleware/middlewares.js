@@ -6,7 +6,7 @@ const middleware= (req,res,next)=>{
         const authHeader= req.headers.token;
         
         const token = authHeader.split(' ')[1]
-        
+        console.log(token)
         const decode = jwt.verify(token, `${process.env.TOKEN_KEY}`)
         
         req.userData = decode 
