@@ -40,16 +40,18 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage })
 
 
-// CREATE A POST
-router.post("/create", middleware.middlewareAdmin, upload.single("image"), async (req, res) => {
+// CREATE A Real State
+router.post("/create", middleware.middlewareAdmin, upload.fields([{name:'image',maxCount:1},{name:'profilePicture', maxCount:1}]), async (req, res) => {
     const userId = req.userData.user_id
     const user = await User.findById(userId);
     const userN = user.username
-    const userPicture=user.profilePicture
+    
     const username = userN
 
     // console.log(username)
-    const result = await cloudinary.uploader.upload(req.file.path)
+    console.log(req.files)
+    const result = await cloudinary.uploader.upload(req.files.image[0].path)
+    const result1 = await cloudinary.uploader.upload(req.files.profilePicture[0].path)
     const newRealState = new RealState({
         location: req.body.location,
         price: req.body.price,
@@ -60,8 +62,9 @@ router.post("/create", middleware.middlewareAdmin, upload.single("image"), async
         yearbuilt:req.body.yearbuilt,
         lotsize:req.body.lotsize,
         Status:req.body.Status,
-        profilePicture:userPicture,
-        username:username,
+        profilePicture:result1.secure_url,
+        offerBy:req.body.offerBy,
+        SqFt:req.body.SqFt,
         Description:req.body.Description,
         
     });

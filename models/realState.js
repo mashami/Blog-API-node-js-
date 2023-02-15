@@ -41,6 +41,16 @@ const realStateSchema = new mongoose.Schema({
     yearbuilt: {
         type: String,
         required: false
+
+    },
+    SqFt:{
+        type:Number,
+        required:false,
+        default:0
+    },
+    offerBy:{
+        type:String,
+        required:true
     },
     lotsize: {
         type: Number,
@@ -55,14 +65,12 @@ const realStateSchema = new mongoose.Schema({
         type: String,
         required: false
     },
-    username:{
-        type:String,
-        required:true
-    },
+   
     profilePicture: {
         type: String,
         required: false,
     },
+    
 
 
 },

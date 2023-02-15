@@ -1,9 +1,9 @@
 const createRealState = {
     tags: ["REAL_STATE"],
     description: "This API is for creating a post which will be for the people who have an account",
-    // security:[{
-    //     token :[]
-    // }],
+    security:[{
+        token :[]
+    }],
     requestBody: {
         content: {
             "multipart/form-data": {
@@ -54,12 +54,27 @@ const createRealState = {
                         Status:{
                             type:"String",
                             example:"Sell"
+
                         },
+                        offerBy:{
+                            type:"String",
+                            example:"paccy"
+                        },
+                        SqFt:{
+                            type:"Number",
+                            example:"343"
+                        },
+                        profilePicture:{
+                            type: "file",
+                            example: "upload Image"
+                        },
+
                         Description:{
                            type: "String",
                            example:"This is house for sell"
                            
-                    }
+                    },
+
                 }
                 }
             }
