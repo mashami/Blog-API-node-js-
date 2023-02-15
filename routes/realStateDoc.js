@@ -84,10 +84,34 @@ const createRealState = {
     },
 }
 
+const GetAllrealStatesExits = {
+    tags: ["REAL_STATE"],
+    description: "this API it for getting all the posts exits in database no need of log in!",
+    responses: {
+        200: {
+            description: "OK",
+
+            content: {
+                "application/json": {
+                    Schema: {
+                        type: "object",
+                        example: {
+                            count: 0,
+                            user: [],
+                        },
+                    },
+                },
+            },
+        },
+    },
+}
 const realStateDoc = {
    
     "/api/realstate/create": {
         post: createRealState
+    },
+    "/api/realstate/all":{
+        get: GetAllrealStatesExits
     }
 }
 

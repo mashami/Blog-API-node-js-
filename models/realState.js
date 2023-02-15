@@ -55,6 +55,15 @@ const realStateSchema = new mongoose.Schema({
         type: String,
         required: false
     },
+    username:{
+        type:String,
+        required:true
+    },
+    profilePicture: {
+        type: String,
+        required: false,
+    },
+
 
 },
 

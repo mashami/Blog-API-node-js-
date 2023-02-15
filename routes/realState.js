@@ -4,7 +4,27 @@ const User = require("../models/User");
 const RealState=require("../models/realState")
 const multer = require("multer");
 const middleware = require("../middleware/middlewares")
-const cloudinary = require("../happer/cloudinary")
+const cloudinary = require("../happer/cloudinary");
+const realState = require("../models/realState");
+
+
+router.get("/all",async(req, res) =>{
+    
+    try{
+        const realstate = await realState.find();
+       
+        if(realstate){
+        return  res.status(200).json({realstate})
+        }else{
+            return res.status(404).json({
+                message:"NO REAL STATES"
+            })
+        }
+    }catch(err){
+        return  res.status(401).json(err)
+    }
+});
+
 
 
 const storage = multer.diskStorage({
@@ -22,10 +42,11 @@ const upload = multer({ storage: storage })
 
 // CREATE A POST
 router.post("/create", middleware.middlewareAdmin, upload.single("image"), async (req, res) => {
-    // const userId = req.userData.user_id
-    // const user = await User.findById(userId);
-    // const userN = user.username
-    // const username = userN
+    const userId = req.userData.user_id
+    const user = await User.findById(userId);
+    const userN = user.username
+    const userPicture=user.profilePicture
+    const username = userN
 
     // console.log(username)
     const result = await cloudinary.uploader.upload(req.file.path)
@@ -39,6 +60,8 @@ router.post("/create", middleware.middlewareAdmin, upload.single("image"), async
         yearbuilt:req.body.yearbuilt,
         lotsize:req.body.lotsize,
         Status:req.body.Status,
+        profilePicture:userPicture,
+        username:username,
         Description:req.body.Description,
         
     });
@@ -53,5 +76,7 @@ router.post("/create", middleware.middlewareAdmin, upload.single("image"), async
         return res.status(500).json(err)
     }
 });
+
+
 
 module.exports = router;

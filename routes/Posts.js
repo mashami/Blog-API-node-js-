@@ -98,7 +98,7 @@ router.put("/update/:id", middleware.middlewarepost, async (req, res) => {
 
 router.put("/likes/:id", middleware.middlewarepost, async (req, res) => {
     try {
-
+       console.log(req.ip)
         const userId = req.userData.user_id
         // console.log("this is the user Id " + userId)
         const {likedBy} = await Post.findById(req.params.id);
