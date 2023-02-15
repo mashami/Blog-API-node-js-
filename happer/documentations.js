@@ -18,13 +18,18 @@ const options= {
         },
         servers: [
           {
-            url: 'http://172.31.89.26:5000',
+            url: 'http://localhost:5000/',
             description: 'Development server',
+          },
+          {
+            url: 'https://mashami.cyclic.app',
+            description: "Hosted Development server",
           },
           {
             url: 'https://blog-apis-jqjw.onrender.com',
             description: "Hosted Development server",
           },
+          
         ],
         tags: [
           { name: 'AUTHENTICATION', description: 'Authentication Routes' },
