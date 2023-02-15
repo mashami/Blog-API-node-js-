@@ -25,10 +25,10 @@ const upload = multer({ storage: storage })
 
 // CREATE A POST
 router.post("/create", middleware.middlewarepost, upload.single("photo"), async (req, res) => {
-    // const userId = req.userData.user_id
-    // const user = await User.findById(userId);
-    // const userN = user.username
-    // const username = userN
+    const userId = req.userData.user_id
+    const user = await User.findById(userId);
+    const userN = user.username
+    const username = userN
 
     // console.log(username)
     const result = await cloudinary.uploader.upload(req.file.path)
@@ -37,7 +37,7 @@ router.post("/create", middleware.middlewarepost, upload.single("photo"), async 
         desc: req.body.desc,
         photo: result.secure_url,
         // photo:process.env.URL_BLOG+"/images/"+req.file.filename,
-        // username: username,
+        username: username,
         categories: req.body.categories
 
     });
