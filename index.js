@@ -11,7 +11,7 @@ const multer = require("multer")
 const swaggerDocumention= require("./happer/documentations")
 const { MONGO_URI } = process.env;
 const cors = require('cors');
-const realState = require("./routes/realState");
+// const realState = require("./routes/realState");
 
 
 dotenv.config();
@@ -54,7 +54,7 @@ mongoose.connect(process.env.MONGO_URI)
         app.use("/api/post",Postoute );
         app.use("/api/category",CategoryRouter );
         app.use("/api/comment", commentRouter);
-           app.use("/api/realstate",realState);
+        //    app.use("/api/realstate",realState);
         
 
         swaggerDocumention(app);
