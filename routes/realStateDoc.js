@@ -1,3 +1,35 @@
+const GetArealState = {
+    tags: ["REAL_STATE"],
+    description: "REAL_STATE",
+    description: "This Api generated for accessing a Post only by the post owner by using ID of the post",
+    
+    parameters: [
+        {
+            name: "id",
+            in: "path",
+            description: "id of user",
+            type: "string",
+            example: "63e9227fc807f6e9217d955a"
+        }
+    ],
+    responses: {
+        200: {
+            description: "OK",
+            content: {
+                "application/json": {
+                    type: 'object',
+                    example: {
+                        status: "success",
+                        data: []
+                    },
+                },
+            },
+        },
+    },
+
+};
+
+
 const createRealState = {
     tags: ["REAL_STATE"],
     description: "This API is for creating a post which will be for the people who have an account",
@@ -326,6 +358,9 @@ const updateLikesById = {
 };
 
 const realStateDoc = {
+    "/api/realstate/{id}":{
+         get:GetArealState
+    },
     "/api/realstate/create": {
         post: createRealState
     },

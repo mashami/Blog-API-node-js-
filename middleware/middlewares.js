@@ -43,14 +43,14 @@ const middlewareAdmin= async (req,res,next)=>{
         const authHeader= req.headers.token || req.headers.authorization;
         
         const token = authHeader.split(' ')[1]
-        
+        console.log(token)
         const decode = jwt.verify(token, `${process.env.TOKEN_KEY}`)
         
         req.userData = decode
        const userid=req.userData.user_id
         const user = await User.findById(userid);
         if(user.role==="admin") {
-            
+            console.log("admitted")
         next();
         }else{
             

@@ -1,11 +1,12 @@
 const router = require("express").Router();
 const { model } = require("mongoose");
 const User = require("../models/User");
-const RealState = require("../models/realState")
+
 const multer = require("multer");
 const middleware = require("../middleware/middlewares")
 const cloudinary = require("../happer/cloudinary");
 const realState = require("../models/realState");
+
 
 
 router.get("/all", async (req, res) => {
@@ -49,10 +50,12 @@ router.post("/create", middleware.middlewareAdmin, upload.fields([{ name: 'image
     // const username = userN
 
     // console.log(username)
-    console.log(req.files)
+    // console.log(req.files)
+    console.log("start")
     const result = await cloudinary.uploader.upload(req.files.image[0].path)
     const result1 = await cloudinary.uploader.upload(req.files.profilePicture[0].path)
-    const newRealState = new RealState({
+    console.log("End")
+    const newRealState = new realState({
         title: req.body.title,
         location: req.body.location,
         price: req.body.price,
@@ -63,7 +66,7 @@ router.post("/create", middleware.middlewareAdmin, upload.fields([{ name: 'image
         yearbuilt: req.body.yearbuilt,
         lotsize: req.body.lotsize,
         Status: req.body.Status,
-        profilePicture: result1.secure_url,
+        profilePicture: result1.secure_url, 
         offerBy: req.body.offerBy,
         SqFt: req.body.SqFt,
         Description: req.body.Description,
@@ -71,6 +74,7 @@ router.post("/create", middleware.middlewareAdmin, upload.fields([{ name: 'image
     });
     try {
         const saveRealState = await newRealState.save();
+        console.log(saveRealState)
         if (saveRealState) {
             return res.status(200).json(saveRealState)
         } else {
@@ -81,7 +85,7 @@ router.post("/create", middleware.middlewareAdmin, upload.fields([{ name: 'image
     }
 });
 
-//DELETE POST
+// DELETE Real State
 
 router.delete("/delete/:id", middleware.middlewareAdmin, async (req, res) => {
     try {
@@ -102,6 +106,23 @@ router.delete("/delete/:id", middleware.middlewareAdmin, async (req, res) => {
         return res.status(500).json(err)
     }
 })
+
+// GET A Real State
+
+router.get("/:id", async (req, res) => {
+    try {
+        const realstate = await realState.findById(req.params.id)//.populate("likedBy", "");
+        if (realstate){
+        return res.status(200).json(realstate);
+        }else{
+            return res.status(404).json({
+                message:"Doesn't exits"
+            });
+        }
+    } catch (err) {
+        return res.status(500).json(err)
+    }
+});
 
 //UPDATE Real State
 router.patch("/update/:id", middleware.middlewareAdmin, upload.fields([{ name: 'image', maxCount: 1 }, { name: 'profilePicture', maxCount: 1 }]), async (req, res) => {
