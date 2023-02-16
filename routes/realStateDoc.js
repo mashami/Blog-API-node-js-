@@ -328,7 +328,7 @@ const updateLikesById = {
             in: "path",
             description: "id of POST",
             type: "string",
-            example: "63ec97261d70d08b58789481"
+            example: "63ee1ea82f4300b8f721f3a3"
         }
     ],
     requestBody: {

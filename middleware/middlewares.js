@@ -1,6 +1,8 @@
 require("dotenv")
+const uuid = require('uuid'); 
 const jwt= require("jsonwebtoken")
 const User=require("../models/User")
+const cookieParser = require('cookie-parser');
 const middleware= (req,res,next)=>{
     try {
         const authHeader= req.headers.token || req.headers.authorization;
@@ -66,4 +68,25 @@ const middlewareAdmin= async (req,res,next)=>{
     }
 
 }
-module.exports = { middleware,middlewarepost, middlewareAdmin };
+
+function anonymousAuth(req, res, next) {
+    // check if the request has a cookie with a unique ID
+    if (!req.cookies.userId) {
+      // if the request doesn't have a cookie, generate a new unique ID
+      const userId = uuid.v4();
+    //   console.log(userId)
+      // set the user ID as a cookie on the response
+    //   console.log( res.cookie('userId', userId, { httpOnly: true }))
+       res.cookie('userId', userId, { httpOnly: true })
+      next();
+    }else{
+    // call the next middleware function in the stack
+    return res.status(200).json({
+        message:"a user already like this post"
+        
+       })
+    
+    }
+  }
+
+module.exports = { middleware,middlewarepost, middlewareAdmin, anonymousAuth };

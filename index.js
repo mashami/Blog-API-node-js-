@@ -15,6 +15,7 @@ const realState = require("./routes/realState");
 const boyParser = require("body-parser");
 const bodyParser = require("body-parser");
 const cookieParser = require('cookie-parser');
+const uuid = require('uuid'); // import the uuid package
 
 dotenv.config();
 

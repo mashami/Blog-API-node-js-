@@ -6,6 +6,7 @@ const multer = require("multer");
 const middleware = require("../middleware/middlewares")
 const cloudinary = require("../happer/cloudinary");
 const realState = require("../models/realState");
+const uuid = require('uuid'); 
 
 
 
@@ -160,37 +161,16 @@ router.patch("/update/:id", middleware.middlewareAdmin, upload.fields([{ name: '
 }
 );
 
-router.patch("/likes/:id", async (req, res) => {
-    console.log(req.cookies)
-    // const cookieName = "mycookie";
-    const cookieDomain=req.cookies.csrftoken
-    // const domain=req.cookies.
-    // const cookieDomain = req.cookies[cookieName + ".domain"];
-    // const cookiePath = req.cookies[cookieName + ".path"];
-    // console.log(cookiePath)
-    console.log(cookieDomain)
-    try {
-        // console.log(req.ip)
-       
-        // console.log("this is the user Id " + userId)
-        const { likedBy } = await realState.findById(req.params.id);
-
-        const realstate = await realState.findById(req.params.id);
-
-        if (realstate) {
-
-            if (!cookieDomain) {
-
-               return res.status(200).json({
-                message:"a user already like this post"
-               })
-            } else {
-                try {
+router.patch("/likes/:id",middleware.anonymousAuth ,async (req, res) => {
+    
+    const userId = uuid.v4();
+    console.log(userId.toString())
+          try {
                     const updateRealStateById = await realState.findByIdAndUpdate(
                         req.params.id,
                         {
                             $inc: { likes: 1 },
-                            $push: { likedBy: cookieDomain }
+                            $push: { likedBy: userId }
                         },
                         { new: true }
                     );
@@ -198,16 +178,7 @@ router.patch("/likes/:id", async (req, res) => {
                 } catch (err) {
                     return res.status(404).json(err)
                 }
-            }
-        }
-
-        else {
-            return res.status(401).json({ status: "realState not Exits", err: err.message })
-        }
-    } catch (err) {
-        return res.status(500).json({ status: "Server error", err: err.message })
-    }
-
-});
+            })
+  
 
 module.exports = router;
