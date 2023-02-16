@@ -87,6 +87,15 @@ router.delete("/delete/:id",middleware.middlewareAdmin, async(req, res)=>{
     return  res.status(401).json("you can't delete other user's account")
 }
 });
+// GET ALL REAL STATES
+router.get("/", middleware.middlewareAdmin,async(req, res) =>{
+    try{
+        const user = await User.find();
+        return res.status(200).json({user})
+    }catch(err){
+        return res.status(401).json("this is for Admin only")
+    }
+});
 
 // GET A USER
 
@@ -101,13 +110,6 @@ router.get("/:id",middleware.middleware, async(req, res) =>
     }
 });
 
-router.get("/", middleware.middlewareAdmin,async(req, res) =>{
-    try{
-        const user = await User.find();
-        return res.status(200).json({user})
-    }catch(err){
-        return res.status(401).json("this is for Admin only")
-    }
-});
+
 
 module.exports = router;

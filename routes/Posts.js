@@ -69,7 +69,7 @@ router.post("/create", middleware.middlewarepost, upload.single("photo"), async 
 });
 
 //UPDATE POST
-router.put("/update/:id", middleware.middlewarepost, async (req, res) => {
+router.patch("/update/:id", middleware.middlewarepost, async (req, res) => {
     try {
         const userId = req.userData.user_id
         const user = await User.findById(userId);
@@ -109,7 +109,7 @@ router.put("/update/:id", middleware.middlewarepost, async (req, res) => {
 
 
 
-router.put("/likes/:id", middleware.middlewarepost, async (req, res) => {
+router.patch("/likes/:id", middleware.middlewarepost, async (req, res) => {
     try {
         console.log(req.ip)
         const userId = req.userData.user_id
