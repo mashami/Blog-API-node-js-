@@ -50,6 +50,7 @@ const realStateSchema = new mongoose.Schema({
     },
     offerBy:{
         type:String,
+        default:"",
         required:true
     },
     lotsize: {

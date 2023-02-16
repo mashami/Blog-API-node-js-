@@ -46,7 +46,7 @@ router.post("/create", middleware.middlewareAdmin, upload.fields([{name:'image',
     const user = await User.findById(userId);
     const userN = user.username
     
-    const username = userN
+    // const username = userN
 
     // console.log(username)
     console.log(req.files)
@@ -80,6 +80,40 @@ router.post("/create", middleware.middlewareAdmin, upload.fields([{name:'image',
     }
 });
 
-
+//UPDATE Real State
+router.put("/update/:id", middleware.middlewareAdmin,upload.fields([{name:'image',maxCount:1},{name:'profilePicture', maxCount:1}]), async (req, res) => {
+   
+    try {
+        
+        const realstate = await realState.findById(req.params.id);
+        if(realstate){
+            try {
+                console.log(req.body);
+                const updaterealstate= await realState.findByIdAndUpdate(
+                   
+                    req.params.id,
+                    
+                    {
+                        $set: req.body,
+                    },
+                    { new: true }
+                );
+                return res.status(200).json(updaterealstate);
+            } catch (err) {
+                return res.status(404).json({
+                    message:"not found"
+                })
+            }
+        }else{
+            return res.status(400).json({
+                message:"not found"
+            })
+        }
+        
+    } catch (err) {
+        return res.status(500).json(err)
+    }
+}
+);
 
 module.exports = router;
