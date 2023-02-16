@@ -233,6 +233,59 @@ const updateRealStateById = {
         },
     },
 };
+
+const DeleteRealState = {
+    
+    tags: ['REAL_STATE'],
+    description: "Delete POST by id",
+    description: "this API is for deleting a post but task for the owner of the post and admin",
+    security:[{
+        token :[]
+    }],
+    parameters: [
+        {
+            name: "id",
+            in: "path",
+            description: "id of POST",
+            type: "string",
+            example: "63caaf3527b29e1d399896da"
+        }
+    ],
+    requestBody: {
+        content: {
+            "application/json": {
+                schema: {
+                    type: "object",
+                    properties: {
+                     
+                        username: {
+                            type: "string",
+                            example: "mashami"
+
+                        },
+                        
+                    },
+                },
+            },
+        },
+    },
+    responses: {
+        200: {
+            description: "OK",
+            content: {
+                "application/json": {
+                    type: "object",
+                    example: {
+                        status: "success",
+                        data: []
+                    },
+                },
+            },
+        },
+    },
+};
+
+
 const updateLikesById = {
     tags: ['REAL_STATE'],
     description: "this is the API for the like a user will be allow to like post a once",
@@ -280,11 +333,14 @@ const realStateDoc = {
         get: GetAllrealStatesExits
     },
     "/api/realstate/update/{id}": {
-        put: updateRealStateById
+        patch: updateRealStateById
     },
     "/api/realstate/likes/{id}":{
-        put :updateLikesById
-    }
+        patch :updateLikesById
+    },
+    "/api/realstate/delete/{id}":{
+        delete: DeleteRealState
+    },
 }
 
 module.exports = realStateDoc;
