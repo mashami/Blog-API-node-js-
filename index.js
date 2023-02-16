@@ -14,7 +14,7 @@ const cors = require('cors');
 const realState = require("./routes/realState");
 const boyParser = require("body-parser");
 const bodyParser = require("body-parser");
-
+const cookieParser = require('cookie-parser');
 
 dotenv.config();
 
@@ -50,6 +50,7 @@ app.use((req, res, next) => {
     console.log(req.path, req.method)
     next();
 })
+app.use(cookieParser());
 app.use(bodyParser.urlencoded({extended:false}));
 app.use(bodyParser.json());
 

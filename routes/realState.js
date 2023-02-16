@@ -53,6 +53,7 @@ router.post("/create", middleware.middlewareAdmin, upload.fields([{name:'image',
     const result = await cloudinary.uploader.upload(req.files.image[0].path)
     const result1 = await cloudinary.uploader.upload(req.files.profilePicture[0].path)
     const newRealState = new RealState({
+        title:req.body.title,
         location: req.body.location,
         price: req.body.price,
         image: result.secure_url,
@@ -115,5 +116,73 @@ router.put("/update/:id", middleware.middlewareAdmin,upload.fields([{name:'image
     }
 }
 );
+
+router.put("/likes/:id", async (req, res) => {
+    try {
+        // console.log(req.ip)
+        const { userId } = req.cookies;
+        // console.log("this is the user Id " + userId)
+        const { likedBy } = await realState.findById(req.params.id);
+
+        const real = await realState.findById(req.params.id);
+        const userAlreadyLiked = realState.likedBy.includes(userId);
+
+        if (!userId) {
+            // Generate a random user ID for users who are not logged in
+            const newUserId = Math.random().toString(36).substring(2);
+            res.cookie('userId', newUserId);
+          }
+
+
+        if (real) {
+
+            if (userAlreadyLiked) {
+
+                try {
+                    // let filteredArray = likedBy.filter(function(value) {
+                    //     return value !== userId;
+                    //    });
+
+
+                    const updaterealstate = await realState.findByIdAndUpdate(
+                        req.params.id,
+
+                        {
+
+                            $pull: { likedBy: userId },
+                            $inc: { likes: -1 },
+
+                        },
+                        { new: true }
+                    )
+                    return res.status(200).json(updaterealstate);
+                } catch (err) {
+                    console.log(err);
+                    return res.status(404).json({ status: "error", err: err.message })
+                }
+            } else {
+                try {
+                    const updaterealstate = await realState.findByIdAndUpdate(
+                        req.params.id,
+                        {
+                            $inc: { likes: 1 },
+                            $push: { likedBy: userId }
+                        },
+                        { new: true }
+                    );
+                    return res.status(200).json(updaterealstate);
+                } catch (err) {
+                    return res.status(404).json(err)
+                }
+            }
+        }
+
+        else {
+            return res.status(401).json({ status: "real state not Exits", err: err.message })
+        }
+    } catch (err) {
+        return res.status(500).json({ status: "Server error", err: err.message })
+    }
+});
 
 module.exports = router;

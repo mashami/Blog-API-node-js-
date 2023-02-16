@@ -142,6 +142,10 @@ const updateRealStateById = {
                 schema: {
                     type: "object",
                     properties: {
+                        title:{
+                           type:"String",
+                           example:"title"
+                        },
                         'location[province]':{
                             type:"String",
                             example:"Kigali",
@@ -225,7 +229,44 @@ const updateRealStateById = {
         },
     },
 };
-
+const updateLikesById = {
+    tags: ['REAL_STATE'],
+    description: "this is the API for the like a user will be allow to like post a once",
+    
+    parameters: [
+        {
+            name: "id",
+            in: "path",
+            description: "id of POST",
+            type: "string",
+            example: "63ec97261d70d08b58789481"
+        }
+    ],
+    requestBody: {
+        content: {
+            "application/json": {
+                schema: {
+                    type: "object",
+                    
+                },
+            },
+        },
+    },
+    responses: {
+        201: {
+            description: "OK",
+            content: {
+                "application/json": {
+                    type: "object",
+                    example: {
+                        status: "success",
+                        data: []
+                    },
+                },
+            },
+        },
+    },
+};
 
 const realStateDoc = {
     "/api/realstate/create": {
@@ -237,6 +278,9 @@ const realStateDoc = {
     "/api/realstate/update/{id}": {
         put: updateRealStateById
     },
+    "/api/realstate/likes/{id}":{
+        put :updateLikesById
+    }
 }
 
 module.exports = realStateDoc;

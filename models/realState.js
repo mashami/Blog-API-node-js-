@@ -2,6 +2,12 @@ const mongoose = require("mongoose")
 const Schema = mongoose.Schema;
 
 const realStateSchema = new mongoose.Schema({
+    title:{
+        type:String,
+        required:true,
+        default:"First title"
+
+    },
 
     location: {
         province: {
@@ -71,6 +77,12 @@ const realStateSchema = new mongoose.Schema({
         type: String,
         required: false,
     },
+    likes: {
+        type: Number,
+        required: false,
+        default: 0,
+    },
+    likedBy: [],
     
 
 
