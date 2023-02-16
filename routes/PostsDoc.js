@@ -311,7 +311,7 @@ const PostDoc = {
         delete: DeletePost
     },
     "/api/post/update/{id}":{
-        put:updatePostById
+        patch:updatePostById
     },
     "/api/post?username={username}": {
         get: GetAllPost
@@ -320,7 +320,7 @@ const PostDoc = {
         post: createPost
     },
     "/api/post/likes/{id}":{
-        put: updateLikesById
+        patch: updateLikesById
     
     },
     "/api/post/all":{

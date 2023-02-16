@@ -21,7 +21,7 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage })
 
-router.put("/update/:id", middleware.middlewarepost, upload.single("profilePicture"),async(req, res)=>{
+router.patch("/update/:id", middleware.middlewarepost, upload.single("profilePicture"),async(req, res)=>{
     const userId=req.userData.user_id
     const user = await User.findById(userId);
     // const user_id= user._id

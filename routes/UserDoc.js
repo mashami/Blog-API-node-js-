@@ -211,7 +211,7 @@ const userDoc = {
         delete: DeleteUser
     },
     "/api/user/update/{id}":{
-        put:updateUserById
+        patch:updateUserById
     },
     "/api/user/":{
         get:GetAllUser
