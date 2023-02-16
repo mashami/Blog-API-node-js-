@@ -10,6 +10,10 @@ const createRealState = {
                 schema: {
                     type: "object",
                     properties: {
+                        title:{
+                            type:"String",
+                            example:"title"
+                         },
                         'location[province]':{
                             type:"String",
                             example:"Kigali",
