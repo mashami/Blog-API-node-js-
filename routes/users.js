@@ -67,8 +67,8 @@ router.delete("/delete/:id",middleware.middlewareAdmin, async(req, res)=>{
     const user = await User.findById(userId);
     const user_id= user._id
     // const username=userN
-    console.log(username)
-    if (user_id === req.params.id){
+    
+    if (user_id === req.params.id || user.role === "admin"){
     try{
         const user = await User.findById(req.params.id);
     

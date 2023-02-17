@@ -42,30 +42,7 @@ router.post("/create", middleware.middlewarepost, upload.single("photo"), async 
     } catch (error) {
         return res.status(500).json(error)
     }
-    // try {
-    //     console.log('starting');
-    //     // const userId = req.userData.user_id
-    //     const user = await User.findById(req.userData.user_id);
-    //     const username = user.username
-
-
-    //     // console.log(username)
-    //     const result = await cloudinary.uploader.upload(req.file.path)
-    //     console.log(result);
-    //     const newpost = new Post({
-    //         title: req.body.title,
-    //         desc: req.body.desc,
-    //         photo: result.secure_url,
-    //         // photo:process.env.URL_BLOG+"/images/"+req.file.filename,
-    //         username: username,
-    //         categories: req.body.categories
-
-    //     });
-    //     const savePost = await newpost.save();
-    //     return res.status(200).json(savePost)
-    // } catch (err) {
-    //     return res.status(500).json(err)
-    // }
+   
 });
 
 //UPDATE POST

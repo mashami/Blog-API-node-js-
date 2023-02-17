@@ -161,10 +161,7 @@ router.patch("/update/:id", middleware.middlewareAdmin, upload.fields([{ name: '
 }
 );
 
-router.patch("/views/:id",middleware.anonymousAuth, async (req, res) => {
-
-    const userId = uuid.v4();
-    
+router.patch("/views/:id", middleware.anonymousAuth, async (req, res) => {
     try {
         const updateRealStateById = await realState.findByIdAndUpdate(
             req.params.id,
