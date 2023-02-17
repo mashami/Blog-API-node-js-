@@ -88,7 +88,7 @@ router.post("/create", middleware.middlewareAdmin, upload.fields([{ name: 'image
 
 // DELETE Real State
 
-router.delete("/delete/:id", middleware.middlewareAdmin, async (req, res) => {
+router.delete("/delete/:id", async (req, res) => {
     try {
         
         const realstate = await realState.findById(req.params.id);
