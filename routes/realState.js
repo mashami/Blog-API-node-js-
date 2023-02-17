@@ -170,7 +170,7 @@ router.patch("/likes/:id" ,middleware.anonymousAuth,async (req, res) => {
                         req.params.id,
                         {
                             $inc: { likes: 1 },
-                            
+                         
                         },
                         { new: true }
                     );

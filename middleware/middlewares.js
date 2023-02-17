@@ -70,13 +70,11 @@ const middlewareAdmin= async (req,res,next)=>{
 }
 
 function anonymousAuth(req, res, next) {
-    // check if the request has a cookie with a unique ID
     if (!req.cookies.userId) {
-      // if the request doesn't have a cookie, generate a new unique ID
-      const userId = uuid.v4();
-    //   console.log(userId)
-      // set the user ID as a cookie on the response
-    //   console.log( res.cookie('userId', userId, { httpOnly: true }))
+
+        const userId = uuid.v4();
+
+          console.log( res.cookie('userId', userId, { httpOnly: true }))
        res.cookie('userId', userId, { httpOnly: true })
       next();
     }else{
