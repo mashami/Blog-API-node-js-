@@ -6,7 +6,7 @@ const multer = require("multer");
 const middleware = require("../middleware/middlewares")
 const cloudinary = require("../happer/cloudinary");
 const realState = require("../models/realState");
-const uuid = require('uuid'); 
+const uuid = require('uuid');
 
 
 
@@ -67,7 +67,7 @@ router.post("/create", middleware.middlewareAdmin, upload.fields([{ name: 'image
         yearbuilt: req.body.yearbuilt,
         lotsize: req.body.lotsize,
         Status: req.body.Status,
-        profilePicture: result1.secure_url, 
+        profilePicture: result1.secure_url,
         offerBy: req.body.offerBy,
         SqFt: req.body.SqFt,
         Description: req.body.Description,
@@ -90,18 +90,18 @@ router.post("/create", middleware.middlewareAdmin, upload.fields([{ name: 'image
 
 router.delete("/delete/:id", async (req, res) => {
     try {
-        
+
         const realstate = await realState.findById(req.params.id);
-        
-            try {
-                await realstate.delete();
-                return res.status(200).json("real State has been deleted..");
-            } catch (err) {
-                return res.status(400).json({
-                    message:"the real state is not exit"
-                });
-            }
-        
+
+        try {
+            await realstate.delete();
+            return res.status(200).json("real State has been deleted..");
+        } catch (err) {
+            return res.status(400).json({
+                message: "the real state is not exit"
+            });
+        }
+
     } catch (err) {
 
         return res.status(500).json(err)
@@ -113,11 +113,11 @@ router.delete("/delete/:id", async (req, res) => {
 router.get("/:id", async (req, res) => {
     try {
         const realstate = await realState.findById(req.params.id)//.populate("likedBy", "");
-        if (realstate){
-        return res.status(200).json(realstate);
-        }else{
+        if (realstate) {
+            return res.status(200).json(realstate);
+        } else {
             return res.status(404).json({
-                message:"Doesn't exits"
+                message: "Doesn't exits"
             });
         }
     } catch (err) {
@@ -161,24 +161,44 @@ router.patch("/update/:id", middleware.middlewareAdmin, upload.fields([{ name: '
 }
 );
 
-router.patch("/likes/:id" ,middleware.anonymousAuth,async (req, res) => {
+router.patch("/views/:id",middleware.anonymousAuth, async (req, res) => {
+
+    const userId = uuid.v4();
     
+    try {
+        const updateRealStateById = await realState.findByIdAndUpdate(
+            req.params.id,
+            {
+                $inc: { views: 1 },
+
+            },
+            { new: true }
+        );
+        return res.status(200).json(updateRealStateById);
+    } catch (err) {
+        return res.status(404).json(err)
+    }
+})
+
+
+
+router.patch("/likes/:id", middleware.anonymousAuth, async (req, res) => {
+
     const userId = uuid.v4();
     console.log(userId.toString())
-          try {
-                    const updateRealStateById = await realState.findByIdAndUpdate(
-                        req.params.id,
-                        {
-                            $inc: { likes: 1 },
-                         
-                        },
-                        { new: true }
-                    );
-                    return res.status(200).json(updateRealStateById);
-                } catch (err) {
-                    return res.status(404).json(err)
-                }
-            })
-  
+    try {
+        const updateRealStateById = await realState.findByIdAndUpdate(
+            req.params.id,
+            {
+                $inc: { likes: 1 },
+
+            },
+            { new: true }
+        );
+        return res.status(200).json(updateRealStateById);
+    } catch (err) {
+        return res.status(404).json(err)
+    }
+})
 
 module.exports = router;

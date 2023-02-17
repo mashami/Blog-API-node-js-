@@ -357,6 +357,47 @@ const updateLikesById = {
     },
 };
 
+
+
+const updateviewsById = {
+    tags: ['REAL_STATE'],
+    description: "this is the API for the views a user will be allow to view",
+    
+    parameters: [
+        {
+            name: "id",
+            in: "path",
+            description: "id of POST",
+            type: "string",
+            example: "63ef1e2c8376bdb27617b0a9"
+        }
+    ],
+    requestBody: {
+        content: {
+            "application/json": {
+                schema: {
+                    type: "object",
+                    
+                },
+            },
+        },
+    },
+    responses: {
+        201: {
+            description: "OK",
+            content: {
+                "application/json": {
+                    type: "object",
+                    example: {
+                        status: "success",
+                        data: []
+                    },
+                },
+            },
+        },
+    },
+};
+
 const realStateDoc = {
     "/api/realstate/{id}":{
          get:GetArealState
@@ -372,6 +413,9 @@ const realStateDoc = {
     },
     "/api/realstate/likes/{id}":{
         patch :updateLikesById
+    },
+    "/api/realstate/views/{id}":{
+        patch:updateviewsById
     },
     "/api/realstate/delete/{id}":{
         delete: DeleteRealState

@@ -82,6 +82,11 @@ const realStateSchema = new mongoose.Schema({
         required: false,
         default: 0,
     },
+    views: {
+        type: Number,
+        required: false,
+        default: 0,
+    },
    
 },
 
