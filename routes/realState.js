@@ -161,7 +161,7 @@ router.patch("/update/:id", middleware.middlewareAdmin, upload.fields([{ name: '
 }
 );
 
-router.patch("/likes/:id",middleware.anonymousAuth ,async (req, res) => {
+router.patch("/likes/:id" ,middleware.anonymousAuth,async (req, res) => {
     
     const userId = uuid.v4();
     console.log(userId.toString())
@@ -170,7 +170,7 @@ router.patch("/likes/:id",middleware.anonymousAuth ,async (req, res) => {
                         req.params.id,
                         {
                             $inc: { likes: 1 },
-                            $push: { likedBy: userId }
+                            
                         },
                         { new: true }
                     );

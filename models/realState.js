@@ -82,14 +82,7 @@ const realStateSchema = new mongoose.Schema({
         required: false,
         default: 0,
     },
-    likedBy:{
-        type:Array,
-        required:false,
-        default:""
-    },
-    
-
-
+   
 },
 
     { timestamps: true });
