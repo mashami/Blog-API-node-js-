@@ -37,12 +37,14 @@ router.patch("/update/:id", middleware.middlewarepost, upload.single("profilePic
            
             if(userna.length!==0){
                 return res.status(402).json({
-                    message:"this user name is already used"
+                    message:"this user name is already used",
+                    userna
                 })
             }
 
         }
     try{
+        
         const result = await cloudinary.uploader.upload(req.file.path)
         const updateuser = await User.findByIdAndUpdate(req.params.id,{
             $set: req.body,

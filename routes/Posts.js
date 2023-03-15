@@ -88,7 +88,7 @@ router.patch("/update/:id", middleware.middlewarepost, async (req, res) => {
 
 router.patch("/likes/:id", middleware.middlewarepost, async (req, res) => {
     try {
-        console.log(req.ip)
+       
         const userId = req.userData.user_id
         // console.log("this is the user Id " + userId)
         const { likedBy } = await Post.findById(req.params.id);
@@ -100,11 +100,6 @@ router.patch("/likes/:id", middleware.middlewarepost, async (req, res) => {
             if (likedBy.includes(userId)) {
 
                 try {
-                    // let filteredArray = likedBy.filter(function(value) {
-                    //     return value !== userId;
-                    //    });
-
-
                     const updatePost = await Post.findByIdAndUpdate(
                         req.params.id,
 
@@ -213,7 +208,7 @@ router.get("/", middleware.middlewarepost, async (req, res) => {
 
     req.query.username = userN
     const username = req.query.username
-    console.log(username)
+  
     const catName = req.query.cat;
     try {
         let posts;
